@@ -1,4 +1,5 @@
 import Pagination from "@/components/common/Pagination";
+import { promises as fs } from 'fs';
 
 type Props = {
   searchParams: { page?: string };
@@ -21,19 +22,20 @@ const getProducts = async ({ page = 1 }: { page?: number }) => {
 };
 
 const ProductList = async ({ searchParams }: Props) => {
+  
   const activePage = searchParams?.page ? parseInt(searchParams.page) : 1;
   const data = await getProducts({
     page: activePage,
   });
   const count = data.total;
-  const products = data.products as Product[];
+  const products = data.products as [Product];
 
   return (
     <div>
       <div className="mb-4">Count: {count}</div>
       <div className="my-4">
         {products.map((product) => (
-          <div key={product.id}>{`${product.id}. ${product.title}`}</div>
+          (product.title == "iPhone X") && <div key={product.id}>{`${product.id}. ${product.title}`}</div>
         ))}
       </div>
       <Pagination
