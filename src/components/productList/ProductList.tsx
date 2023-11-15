@@ -10,6 +10,8 @@ type Product = {
   title: string;
 };
 
+const ss = "iPhone X";
+
 const PAGE_SIZE = 10;
 const BASE_URL = "https://dummyjson.com/products?select=id,title";
 
@@ -35,7 +37,7 @@ const ProductList = async ({ searchParams }: Props) => {
       <div className="mb-4">Count: {count}</div>
       <div className="my-4">
         {products.map((product) => (
-          (product.title == "iPhone X") && <div key={product.id}>{`${product.id}. ${product.title}`}</div>
+          (product.title == ss) && <div key={product.id}>{`${product.id}. ${product.title}`}</div>
         ))}
       </div>
       <Pagination
