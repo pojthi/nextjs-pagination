@@ -1,5 +1,4 @@
 import Pagination from "@/components/common/Pagination";
-import { promises as fs } from 'fs';
 
 type Props = {
   searchParams: { page?: string };
@@ -10,7 +9,6 @@ type Product = {
   title: string;
 };
 
-const ss = "iPhone X";
 
 const PAGE_SIZE = 10;
 const BASE_URL = "https://dummyjson.com/products?select=id,title";
@@ -23,8 +21,9 @@ const getProducts = async ({ page = 1 }: { page?: number }) => {
   return data;
 };
 
+
 const ProductList = async ({ searchParams }: Props) => {
-  
+  let value = "iPhone X";
   const activePage = searchParams?.page ? parseInt(searchParams.page) : 1;
   const data = await getProducts({
     page: activePage,
@@ -33,11 +32,18 @@ const ProductList = async ({ searchParams }: Props) => {
   const products = data.products as [Product];
 
   return (
+      
     <div>
+      <div className="mb-4">
+      Search by title:&nbsp;<input
+    type="text"
+    value={value}
+    onChange={e => { value=e.currentTarget.value; }} />
+      </div>	
       <div className="mb-4">Count: {count}</div>
-      <div className="my-4">
+      <div>
         {products.map((product) => (
-          (product.title == ss) && <div key={product.id}>{`${product.id}. ${product.title}`}</div>
+          (product.title == value) && <div key={product.id}>{`${product.id}. ${product.title}`}</div>
         ))}
       </div>
       <Pagination
