@@ -23,7 +23,7 @@ const getProducts = async ({ page = 1 }: { page?: number }) => {
 
 
 const ProductList = async ({ searchParams }: Props) => {
-  let value = "iPhone X";
+  let value = "iPhone XII";
   const activePage = searchParams?.page ? parseInt(searchParams.page) : 1;
   const data = await getProducts({
     page: activePage,
@@ -35,15 +35,13 @@ const ProductList = async ({ searchParams }: Props) => {
       
     <div>
       <div className="mb-4">
-      Search by title:&nbsp;<input
-    type="text"
-    value={value}
-    onChange={e => { value=e.currentTarget.value; }} />
+    Product Name:&nbsp;<input type="text" value={value}
+     />
       </div>	
       <div className="mb-4">Count: {count}</div>
       <div>
         {products.map((product) => (
-          (product.title == value) && <div key={product.id}>{`${product.id}. ${product.title}`}</div>
+           <div key={product.id}>{`${product.id}. ${product.title}`}</div>
         ))}
       </div>
       <Pagination
